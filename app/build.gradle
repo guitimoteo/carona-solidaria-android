@@ -15,13 +15,41 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"http://10.0.3.2:3000/api\""
         }
+        debug {
+            debuggable true
+            shrinkResources false
+            minifyEnabled false
+            buildConfigField "boolean", "useProductionServices", "false"
+            buildConfigField "String", "BASE_URL", "\"http://10.0.3.2:3000/api\""
+        }
+
+        localhost {
+            debuggable true
+            shrinkResources false
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            buildConfigField "boolean", "useProductionServices", "false"
+            buildConfigField "String", "BASE_URL", "\"http://10.0.3.2:3000/api\""
+        }
+
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.google.android.gms:play-services-maps:7.5.0'
+    compile 'com.koushikdutta.ion:ion:2.+'
+    compile 'com.google.code.gson:gson:2.3.1'
+
+    //Testes unitários com a jvm(Não a dalvik virtual machine)
+    testCompile 'org.robolectric:robolectric:3.0-rc3'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.robolectric:shadows-maps:3.0'
+    testCompile 'org.robolectric:shadows-httpclient:3.0'
+    testCompile 'org.mockito:mockito-core:1.9.5'
+    testCompile 'org.hamcrest:hamcrest-library:1.3'
+    testCompile 'org.hamcrest:hamcrest-core:1.3'
 }
