@@ -21,7 +21,6 @@ android {
             debuggable true
             shrinkResources false
             minifyEnabled false
-            buildConfigField "boolean", "useProductionServices", "false"
             buildConfigField "String", "BASE_URL", "\"http://10.0.3.2:3000/api\""
         }
 
@@ -30,7 +29,6 @@ android {
             shrinkResources false
             minifyEnabled false
             signingConfig signingConfigs.debug
-            buildConfigField "boolean", "useProductionServices", "false"
             buildConfigField "String", "BASE_URL", "\"http://10.0.3.2:3000/api\""
         }
 
