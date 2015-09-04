@@ -47,8 +47,6 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
         // Adiciona um marcador de destino (Fatec)
         destinoLL = new LatLng(-23.637678, -46.578817);
         mMap.addMarker(new MarkerOptions().position(destinoLL).title("Destino"));
-        if(mLatLng !=null)
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(mLatLng));
     }
 
     @Override
@@ -57,6 +55,9 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             mLatLng = new LatLng(latitude, longitude);
+            if(mMap !=null)
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(mLatLng));
+
         }
     }
 
