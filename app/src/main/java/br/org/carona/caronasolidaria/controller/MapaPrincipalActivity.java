@@ -1,5 +1,8 @@
 package br.org.carona.caronasolidaria.controller;
 
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -12,9 +15,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import br.org.carona.caronasolidaria.R;
 
-public class MapaPrincipalActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapaPrincipalActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
+    private LatLng mLatLng;
+    private LatLng destinoLL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +44,34 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        // Adiciona um marcador de destino (Fatec)
+        destinoLL = new LatLng(-23.637678, -46.578817);
+        mMap.addMarker(new MarkerOptions().position(destinoLL).title("Destino"));
+        if(mLatLng !=null)
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(mLatLng));
+    }
 
-        // Add a marker in Sydney and move the camera
-        LatLng latLng = new LatLng(-23.637678, -46.578817);
-        mMap.addMarker(new MarkerOptions().position(latLng).title("Destino"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+    @Override
+    public void onLocationChanged(Location location) {
+        if(mLatLng ==null) {
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+            mLatLng = new LatLng(latitude, longitude);
+        }
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }
