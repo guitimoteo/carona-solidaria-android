@@ -41,6 +41,8 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:7.5.0'
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'com.google.code.gson:gson:2.3.1'
+//    compile 'com.android.support:support-v4:22.2.1'
+    compile 'com.android.support:design:22.2.1'
 
     //Testes unitários com a jvm(Não a dalvik virtual machine)
     testCompile 'org.robolectric:robolectric:3.0-rc3'

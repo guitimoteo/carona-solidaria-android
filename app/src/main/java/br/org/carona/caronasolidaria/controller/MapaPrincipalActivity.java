@@ -2,9 +2,12 @@ package br.org.carona.caronasolidaria.controller;
 
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.support.design.widget.NavigationView;
+import android.view.MenuItem;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -15,22 +18,36 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import br.org.carona.caronasolidaria.R;
 
-public class MapaPrincipalActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
+public class MapaPrincipalActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener, NavigationView.OnNavigationItemSelectedListener {
 
     private GoogleMap mMap;
     private LatLng mLatLng;
     private LatLng destinoLL;
+    private NavigationView naviDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa_principal);
+        // Set a Toolbar to replace the ActionBar.
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_toolbar);
+        setSupportActionBar(toolbar);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // Find our drawer view
+        naviDrawer = (NavigationView) findViewById(R.id.navigation_view);
+        naviDrawer.setNavigationItemSelectedListener(this);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_mapa_principal_activity, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
     /**
      * Manipulates the map once available.
@@ -74,5 +91,24 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        final int id = menuItem.getItemId();
+        switch (id){
+            case R.id.nav_carona:
+
+                break;
+            case R.id.nav_veiculo:
+
+                break;
+
+            case  R.id.nav_listar_pedidos:
+
+                break;
+        }
+
+        return false;
     }
 }
