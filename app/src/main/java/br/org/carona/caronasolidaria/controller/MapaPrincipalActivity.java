@@ -84,13 +84,13 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
 
     @Override
     public void onLocationChanged(Location location) {
-        if(mMap !=null) {
+//        if(mMap !=null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             mLatLng = new LatLng(latitude, longitude);
             CameraPosition cameraPosition = new CameraPosition.Builder().target(mLatLng).zoom(18).build();
             mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        }
+//        }
     }
 
     @Override
