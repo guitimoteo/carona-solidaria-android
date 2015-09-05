@@ -3,6 +3,8 @@ package br.org.carona.caronasolidaria.controller;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -23,7 +25,6 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
     private GoogleMap mMap;
     private LatLng mLatLng;
     private LatLng destinoLL;
-    private NavigationView naviDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +34,26 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_toolbar);
         setSupportActionBar(toolbar);
 
+        // Find our drawer view
+        DrawerLayout mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle drawerToggle = setupDrawerToggle(toolbar,mDrawer);
+        mDrawer.setDrawerListener(new ActionBarDrawerToggle(this, mDrawer, toolbar,
+                R.string.drawer_open, R.string.drawer_close));
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         // Find our drawer view
-        naviDrawer = (NavigationView) findViewById(R.id.navigation_view);
+        NavigationView naviDrawer = (NavigationView) findViewById(R.id.navigation_view);
         naviDrawer.setNavigationItemSelectedListener(this);
+    }
+
+    private ActionBarDrawerToggle setupDrawerToggle(Toolbar toolbar, DrawerLayout mDrawer) {
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+
     }
 
     @Override
