@@ -26,15 +26,16 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
     private GoogleMap mMap;
     private LatLng mLatLng;
     private LatLng destinoLL;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa_principal);
         // Set a Toolbar to replace the ActionBar.
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.app_toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Find our drawer view
         DrawerLayout mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle drawerToggle = setupDrawerToggle(toolbar,mDrawer);
@@ -50,6 +51,7 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
         // Find our drawer view
         NavigationView naviDrawer = (NavigationView) findViewById(R.id.navigation_view);
         naviDrawer.setNavigationItemSelectedListener(this);
+
     }
 
     private ActionBarDrawerToggle setupDrawerToggle(Toolbar toolbar, DrawerLayout mDrawer) {

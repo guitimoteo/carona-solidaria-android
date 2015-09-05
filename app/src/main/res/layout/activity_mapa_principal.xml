@@ -4,24 +4,32 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!-- The ActionBar -->
-    <include
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <!-- The ActionBar -->
+        <include
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <fragment
+
+        <fragment
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" android:id="@+id/map"
     tools:context="br.org.carona.caronasolidaria.controller.MapaPrincipalActivity"
     android:name="com.google.android.gms.maps.SupportMapFragment" />
+    </LinearLayout>
     <!-- The navigation drawer -->
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@android:color/white"
+        app:backgroundTint="#000000"
         app:menu="@menu/menu_mapa_principal_drawer" />
 </android.support.v4.widget.DrawerLayout>
+        <!--android:background="@android:color/white"-->
