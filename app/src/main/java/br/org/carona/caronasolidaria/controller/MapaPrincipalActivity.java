@@ -15,6 +15,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -81,13 +82,12 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
 
     @Override
     public void onLocationChanged(Location location) {
-        if(mLatLng ==null) {
+        if(mMap !=null) {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             mLatLng = new LatLng(latitude, longitude);
-            if(mMap !=null)
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(mLatLng));
-
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(mLatLng).zoom(18).build();
+            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
     }
 
