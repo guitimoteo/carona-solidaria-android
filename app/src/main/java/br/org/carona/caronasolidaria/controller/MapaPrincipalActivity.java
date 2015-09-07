@@ -74,14 +74,14 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
     .setCallback(new FutureCallback<List<CaronaModel>>() {
         @Override
         public void onCompleted(Exception e, List<CaronaModel> result) {
-            if(result != null)
+            if(e== null)
                 for(CaronaModel model: result){
                     CaronaModel.CaronaEntity carona = model.getCarona();
                     LatLng latLng = new LatLng(carona.getIncialLatitude(), carona.getIncialLongitude());
                     mMap.addMarker(
                             new MarkerOptions()
                                     .position(latLng)
-                                    .snippet(String.format("Partida: %s Saida: %s", carona.getHorarioDePartida(), carona.getHorarioDeSaida())));
+                                    .snippet(String.format("Partida: %s \nSaida: %s", carona.getHorarioDePartida(), carona.getHorarioDeSaida())));
                 }
         }
     });
