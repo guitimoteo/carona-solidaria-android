@@ -1,5 +1,7 @@
 package br.org.carona.caronasolidaria.controller;
 
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -18,9 +20,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.reflect.TypeToken;
+import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.util.List;
+
+import br.org.carona.caronasolidaria.BuildConfig;
 import br.org.carona.caronasolidaria.R;
+import br.org.carona.caronasolidaria.rest.model.CaronaModel;
 
 public class MapaPrincipalActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -52,12 +60,31 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
         // Find our drawer view
         NavigationView naviDrawer = (NavigationView) findViewById(R.id.navigation_view);
         naviDrawer.setNavigationItemSelectedListener(this);
+        restGet();
 
     }
 
     private ActionBarDrawerToggle setupDrawerToggle(Toolbar toolbar, DrawerLayout mDrawer) {
         return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
 
+    }
+
+    private void restGet() {
+    Ion.with(this).load(BuildConfig.BASE_URL+"/caronas/index.json").as(new TypeToken< List< CaronaModel>>(){})
+    .setCallback(new FutureCallback<List<CaronaModel>>() {
+        @Override
+        public void onCompleted(Exception e, List<CaronaModel> result) {
+            if(result != null)
+                for(CaronaModel model: result){
+                    CaronaModel.CaronaEntity carona = model.getCarona();
+                    LatLng latLng = new LatLng(carona.getIncialLatitude(), carona.getIncialLongitude());
+                    mMap.addMarker(
+                            new MarkerOptions()
+                                    .position(latLng)
+                                    .snippet(String.format("Partida: %s Saida: %s", carona.getHorarioDePartida(), carona.getHorarioDeSaida())));
+                }
+        }
+    });
     }
 
     @Override
