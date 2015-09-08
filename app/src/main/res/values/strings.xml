@@ -35,4 +35,161 @@
         <item>23:00</item>
         <item>0:00</item>
     </string-array>
+    <string-array name="spnCor">
+	<item >
+      AMARELA
+    </item><item >
+      AZUL
+    </item><item >
+      BEGE
+    </item><item >
+      BRANCA
+    </item><item >
+      CINZA
+    </item><item >
+      DOURADA
+    </item><item >
+      GRENA
+    </item><item >
+      LARANJA
+    </item><item >
+      MARROM
+    </item><item >
+      PRATA
+    </item><item >
+      PRETA
+    </item><item >
+      ROSA
+    </item><item >
+      ROXA
+    </item><item >
+      VERDE
+    </item><item >
+      VERMELHA
+    </item><item>
+      FANTASIA
+    </item>
+    </string-array>
+    <string-array name="spnMarca">
+    <item>
+       AGRALE
+    </item><item >
+       ALFA ROMEO
+    </item><item >
+       AM GENERAL HUMMER
+    </item><item >
+       AMERICAR
+    </item><item >
+       ASTON MARTIN
+    </item><item >
+       AUDI
+    </item><item >
+       BENTLEY
+    </item><item>
+       BMW
+    </item><item>
+       CADILLAC
+    </item><item>
+       CHAMONIX
+    </item><item>
+       CHERY
+    </item><item>
+       CHEVROLET
+    </item><item>
+       CHRYSLER
+    </item><item>
+       CITROEN
+    </item><item>
+       CROSS LANDER
+    </item><item>
+       DODGE
+    </item><item>
+       FABRICANTES DIVERSOS
+    </item><item>
+       FERRARI
+    </item><item>
+       FIAT
+    </item><item>
+       FORD
+    </item><item>
+       GONOW
+    </item><item>
+       HAFEI
+    </item><item>
+       HONDA
+    </item><item>
+       HYUNDAI
+    </item><item>
+       INFINITI
+    </item><item>
+       JAC
+    </item><item>
+       JAGUAR
+    </item><item>
+       JEEP
+    </item><item>
+       KIA
+    </item><item>
+       LAMBORGHINI
+    </item><item>
+       LAND ROVER
+    </item><item>
+       LEXUS
+    </item><item>
+       LIFAN
+    </item><item>
+       LINCOLN
+    </item><item>
+       LOTUS
+    </item><item>
+       MASERATI
+    </item><item>
+       MERCEDES-BENZ
+    </item><item>
+       MG
+    </item><item>
+       MINI COOPER
+    </item><item >
+       MITSUBISHI
+    </item><item>
+       NISSAN
+    </item><item>
+       PEUGEOT
+    </item><item>
+       PONTIAC
+    </item><item >
+       PORSCHE
+    </item><item >
+       RENAULT
+    </item><item >
+       SATURN
+    </item><item>
+       SCION
+    </item><item>
+       SMART
+    </item><item>
+       SSANGYONG
+    </item><item>
+       SUBARU
+    </item><item>
+       SUZUKI
+    </item><item>
+       TAC
+    </item><item>
+       TOYOTA
+    </item><item>
+       TROLLER
+    </item><item>
+       VOLKSWAGEN
+    </item><item>
+       VOLVO
+    </item>
+    </string-array>
+
+    <string name="lblDadosDoVeiculo">Dados do Veículo</string>
+    <string name="lblPlaca">Placa</string>
+    <string name="lblTipo">Tipo</string>
+    <string name="lblMarca">Marca</string>
+    <string name="lblModelo">Modelo</string>
+    <string name="lblCor">Cor</string>
 </resources>
