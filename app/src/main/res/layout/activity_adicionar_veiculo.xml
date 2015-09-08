@@ -1,12 +1,121 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="br.org.carona.caronasolidaria.controller.AdicionarVeiculoActivity">
+    <!-- Dados do Veículo -->
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/lblPlaca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/lblDadosDoVeiculo"
+        android:text="@string/lblPlaca" />
 
-</RelativeLayout>
+    <EditText
+        android:id="@+id/txtPlaca"
+        android:layout_width="100dip"
+        android:layout_height="50dip"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/lblPlaca"
+        android:ems="10"
+        android:hint="Placa" />
+    <requestFocus />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/lblDadosDoVeiculo"
+        android:text="Cidade"
+         />
+
+    <EditText
+        android:id="@+id/adicionar_veiculo_cidade_ed"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/lblDadosDoVeiculo"
+        android:text="Estado" />
+
+    <EditText
+        android:id="@+id/adicionar_veiculo_estado_ed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:ems="2"
+        android:hint="" />
+
+
+    <TextView
+        android:id="@+id/lblMarca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblDadosDoVeiculo"
+        android:text="@string/lblMarca" />
+
+    <Spinner
+        android:id="@+id/spnMarca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignLeft="@+id/lblMarca"
+
+        android:entries="@array/spnMarca"/>
+
+    <TextView
+        android:id="@+id/lblModelo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txtPlaca"
+        android:text="Modelo" />
+
+    <EditText
+        android:id="@+id/txtModelo"
+        android:layout_width="wrap_content"
+        android:layout_height="50dip"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/lblModelo"
+        android:layout_toLeftOf="@+id/lblTipo"
+        android:ems="10"
+        android:hint="" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/lblCor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/lblModelo"
+        android:layout_alignBottom="@+id/lblModelo"
+        android:text="@string/lblCor" />
+
+    <Spinner
+        android:id="@+id/spnCor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtModelo"
+        android:layout_alignLeft="@+id/lblCor"
+        android:layout_alignTop="@+id/txtModelo"
+        android:entries="@array/spnCor"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right|end">
+        <Button
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:textColor="@color/holo_blue_dark"
+            android:text="CADASTRAR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -35,6 +35,8 @@
     android:orientation="horizontal"
     android:gravity="right|end">
     <Button
+        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:textColor="@color/holo_blue_dark"
         android:text="CADASTRAR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
