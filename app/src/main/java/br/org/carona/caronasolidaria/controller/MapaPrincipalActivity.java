@@ -1,9 +1,10 @@
 package br.org.carona.caronasolidaria.controller;
 
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
+import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -60,7 +61,6 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
         // Find our drawer view
         NavigationView naviDrawer = (NavigationView) findViewById(R.id.navigation_view);
         naviDrawer.setNavigationItemSelectedListener(this);
-        restGet();
 
     }
 
@@ -107,7 +107,10 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
         mMap = googleMap;
         // Adiciona um marcador de destino (Fatec)
         destinoLL = new LatLng(-23.637678, -46.578817);
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60, 12, this);
         mMap.addMarker(new MarkerOptions().position(destinoLL).title("Destino"));
+        restGet();
     }
 
     @Override
@@ -140,15 +143,14 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         final int id = menuItem.getItemId();
         switch (id){
-            case R.id.nav_carona:
-
+            case R.id.nav_adicionar_carona:
+                startActivity(new Intent(this, AdicionarCaronaActivity.class ));
                 break;
-            case R.id.nav_veiculo:
-
+            case R.id.nav_adicionar_veiculo:
+                startActivity(new Intent(this, AdicionarVeiculoActivity.class));
                 break;
-
-            case  R.id.nav_listar_pedidos:
-
+            case  R.id.nav_listar_caronas_pedidas:
+                startActivity(new Intent(this, ListarCaronasActivity.class));
                 break;
         }
 

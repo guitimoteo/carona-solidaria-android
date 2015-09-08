@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_carona"
+            android:id="@+id/nav_adicionar_carona"
             android:title="Adicionar carona" />
         <item
-            android:id="@+id/nav_veiculo"
+            android:id="@+id/nav_adicionar_veiculo"
             android:title="Adicionar veículo"/>
         <item
-            android:id="@+id/nav_listar_pedidos"
-            android:title="Adicionar veículo"/>
+            android:id="@+id/nav_listar_caronas_pedidas"
+            android:title="Listar caronas"/>
 
     </group>
 </menu>

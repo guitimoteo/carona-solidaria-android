@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -35,7 +35,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <meta-data
@@ -56,7 +55,31 @@
         <activity
             android:name=".controller.MapaPrincipalActivity"
             android:label="@string/title_activity_mapa_principal"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".controller.AdicionarCaronaActivity"
+            android:label="@string/title_activity_adicionar_carona"
+            android:parentActivityName=".controller.MapaPrincipalActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.org.carona.caronasolidaria.controller.MapaPrincipalActivity" />
+        </activity>
+        <activity
+            android:name=".controller.AdicionarVeiculoActivity"
+            android:label="@string/title_activity_adicionar_veiculo"
+            android:parentActivityName=".controller.MapaPrincipalActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.org.carona.caronasolidaria.controller.MapaPrincipalActivity" />
+        </activity>
+        <activity
+            android:name=".controller.ListarCaronasActivity"
+            android:label="@string/title_activity_listar_caronas"
+            android:parentActivityName=".controller.MapaPrincipalActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.org.carona.caronasolidaria.controller.MapaPrincipalActivity" />
         </activity>
     </application>
 
