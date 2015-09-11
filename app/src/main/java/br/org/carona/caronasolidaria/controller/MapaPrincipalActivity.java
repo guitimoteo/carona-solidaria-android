@@ -144,13 +144,13 @@ public class MapaPrincipalActivity extends AppCompatActivity implements OnMapRea
         final int id = menuItem.getItemId();
         switch (id){
             case R.id.nav_adicionar_carona:
-                startActivity(new Intent(this, AdicionarCaronaActivity.class ));
+                startActivity(new Intent(this, CadastroCaronaActivity.class ));
                 break;
             case R.id.nav_adicionar_veiculo:
-                startActivity(new Intent(this, AdicionarVeiculoActivity.class));
+                startActivity(new Intent(this, CadastroVeiculoActivity.class));
                 break;
             case  R.id.nav_listar_caronas_pedidas:
-                startActivity(new Intent(this, ListarCaronasActivity.class));
+                startActivity(new Intent(this, ListaCaronaActivity.class));
                 break;
         }
 

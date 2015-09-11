@@ -58,7 +58,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" >
         </activity>
         <activity
-            android:name=".controller.AdicionarCaronaActivity"
+            android:name=".controller.CadastroCaronaActivity"
             android:label="@string/title_activity_adicionar_carona"
             android:parentActivityName=".controller.MapaPrincipalActivity" >
             <meta-data
@@ -66,7 +66,7 @@
                 android:value="br.org.carona.caronasolidaria.controller.MapaPrincipalActivity" />
         </activity>
         <activity
-            android:name=".controller.AdicionarVeiculoActivity"
+            android:name=".controller.CadastroVeiculoActivity"
             android:label="@string/title_activity_adicionar_veiculo"
             android:parentActivityName=".controller.MapaPrincipalActivity" >
             <meta-data
@@ -74,7 +74,7 @@
                 android:value="br.org.carona.caronasolidaria.controller.MapaPrincipalActivity" />
         </activity>
         <activity
-            android:name=".controller.ListarCaronasActivity"
+            android:name=".controller.ListaCaronaActivity"
             android:label="@string/title_activity_listar_caronas"
             android:parentActivityName=".controller.MapaPrincipalActivity" >
             <meta-data

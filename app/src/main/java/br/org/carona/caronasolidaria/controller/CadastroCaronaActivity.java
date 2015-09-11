@@ -7,18 +7,18 @@ import android.view.MenuItem;
 
 import br.org.carona.caronasolidaria.R;
 
-public class AdicionarVeiculoActivity extends AppCompatActivity {
+public class CadastroCaronaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adicionar_veiculo);
+        setContentView(R.layout.activity_cadastro_carona);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_adicionar_veiculo, menu);
+        getMenuInflater().inflate(R.menu.menu_adicionar_carona, menu);
         return true;
     }
 

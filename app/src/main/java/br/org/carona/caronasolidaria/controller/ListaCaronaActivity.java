@@ -7,12 +7,12 @@ import android.view.MenuItem;
 
 import br.org.carona.caronasolidaria.R;
 
-public class ListarCaronasActivity extends AppCompatActivity {
+public class ListaCaronaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listar_caronas);
+        setContentView(R.layout.activity_lista_carona);
     }
 
     @Override
