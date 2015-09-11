@@ -18,7 +18,7 @@ public class CadastroVeiculoActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_adicionar_veiculo, menu);
+        getMenuInflater().inflate(R.menu.menu_cadastro_veiculo, menu);
         return true;
     }
 
