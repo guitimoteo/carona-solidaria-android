@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -26,14 +27,22 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.Response;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import br.org.carona.caronasolidaria.BuildConfig;
 import br.org.carona.caronasolidaria.R;
+import br.org.carona.caronasolidaria.rest.model.LoginModel;
 
 
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
@@ -147,8 +156,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+
+            LoginModel loginModel= new LoginModel();
+            loginModel.setNome(email);
+            loginModel.setSenha(password);
+
+            Ion.with(this).load("POST", BuildConfig.BASE_URL+"/users/login.json")
+                    .setJsonPojoBody(loginModel, new TypeToken<LoginModel>() {
+            }).asJsonObject().withResponse().setCallback(new FutureCallback<Response<JsonObject>>() {
+                @Override
+                public void onCompleted(Exception e, Response<JsonObject> result) {
+                showProgress(false);
+                try{
+                   int code = result.getHeaders().code();
+                    if(code == 200){
+                        startActivity(new Intent(LoginActivity.this, MapaPrincipalActivity.class));
+                        finish();
+                    }
+                }catch(Exception e1){
+                    showMessage("Não foi possível conectar-se ao servidor");
+                    }
+                }
+
+            });
         }
     }
 
@@ -202,6 +232,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+    }
+    /**
+     * Shows message for user
+     * @param message
+     */
+    public void showMessage(String message){
+        final String mMessage = message;
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Snackbar.make(findViewById(android.R.id.content), mMessage, Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
