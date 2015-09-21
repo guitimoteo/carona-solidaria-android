@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +17,7 @@ import android.provider.ContactsContract;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,10 +27,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
@@ -46,20 +43,8 @@ import br.org.carona.caronasolidaria.rest.model.LoginModel;
 
 
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
-
-    // UI references.
+    private static final String TAG = "LoginActivity";
+    // Referências da view.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
@@ -74,16 +59,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-        // Set up the login form.
+        // Inicializando o formulário de login
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
+        showAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                if (id == R.integer.login || id == EditorInfo.IME_NULL) {
+                    logar();
                     return true;
                 }
                 return false;
@@ -94,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                logar();
             }
         });
 
@@ -104,40 +89,35 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mSignOutButtons = findViewById(R.id.plus_sign_out_buttons);
     }
 
-    private void populateAutoComplete() {
+    private void showAutoComplete() {
         getLoaderManager().initLoader(0, null, this);
     }
 
 
     /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
+     * Envia o formulário de login para o servidor. Valida os campos de login.
      */
-    public void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
+    public void logar() {
 
-        // Reset errors.
+        // reseta mensagens de erro
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
-        // Store values at the time of the login attempt.
+        // Retira os valores do login.
         String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String senha = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        // Valida o campo de senha
+        if (!TextUtils.isEmpty(senha) && !isPasswordValid(senha)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
 
-        // Check for a valid email address.
+        // Valida o campo de e-mail
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
@@ -159,22 +139,33 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             LoginModel loginModel= new LoginModel();
             loginModel.setNome(email);
-            loginModel.setSenha(password);
+            loginModel.setSenha(senha);
 
             Ion.with(this).load("POST", BuildConfig.BASE_URL+"/users/login.json")
                     .setJsonPojoBody(loginModel, new TypeToken<LoginModel>() {
-            }).asJsonObject().withResponse().setCallback(new FutureCallback<Response<JsonObject>>() {
+                    }).asJsonObject().withResponse().setCallback(new FutureCallback<Response<JsonObject>>() {
                 @Override
                 public void onCompleted(Exception e, Response<JsonObject> result) {
-                showProgress(false);
-                try{
-                   int code = result.getHeaders().code();
-                    if(code == 200){
-                        startActivity(new Intent(LoginActivity.this, MapaPrincipalActivity.class));
-                        finish();
-                    }
-                }catch(Exception e1){
-                    showMessage("Não foi possível conectar-se ao servidor");
+                    showProgress(false);
+                    try{
+//                    Código http. 200 quando o resultado for ok
+                        int code = result.getHeaders().code();
+                        switch (code){
+                            case 200:
+                                Log.d(TAG, "login iniciado");
+                                startActivity(new Intent(LoginActivity.this, MapaPrincipalActivity.class));
+                                finish();
+                                break;
+                            case 400:
+                                Log.d(TAG, "erro ao logar");
+                                mensagemView(getString(R.string.login_invalido));
+                                break;
+                            default:
+                                mensagemView(getString(R.string.erro_servidor));
+                        }
+
+                    }catch(Exception e1){
+                        mensagemView(getString(R.string.erro_servidor));
                     }
                 }
 
@@ -183,17 +174,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
+        //TODO: Validar de acordo com o email da fatec
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
+        //TODO: Validar a senha de acordo com critérios pré-definidos
         return password.length() > 4;
     }
 
     /**
-     * Shows the progress UI and hides the login form.
+     * Mostra a barra de progresso e esconde o formulário
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     public void showProgress(final boolean show) {
@@ -233,59 +224,48 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
     }
+
     /**
-     * Shows message for user
-     * @param message
+     * Mostra uma mensagem na view
+     * @param mensagem
      */
-    public void showMessage(String message){
-        final String mMessage = message;
+    public void mensagemView(String mensagem){
+        final String mMensagem= mensagem;
         runOnUiThread(new Runnable() {
             public void run() {
-                Snackbar.make(findViewById(android.R.id.content), mMessage, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(android.R.id.content), mMensagem, Snackbar.LENGTH_SHORT).show();
             }
         });
     }
 
 
 
-
-    /**
-     * Check if the device supports Google Play Services.  It's best
-     * practice to check first rather than handling this as an error case.
-     *
-     * @return whether the device supports Google Play Services
-     */
-    private boolean supportsGooglePlayServices() {
-        return GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) ==
-                ConnectionResult.SUCCESS;
-    }
-
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
-                // Retrieve data rows for the device user's 'profile' contact.
+                // Retorna os dados de contato do usuário.
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
                         ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
 
-                // Select only email addresses.
+                // Seleciona somente o endereço de email.
                 ContactsContract.Contacts.Data.MIMETYPE +
                         " = ?", new String[]{ContactsContract.CommonDataKinds.Email
                 .CONTENT_ITEM_TYPE},
 
-                // Show primary email addresses first. Note that there won't be
-                // a primary email address if the user hasn't specified one.
+                // Mostra o e-mail primário caso o usuário tenha específicado.
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         List<String> emails = new ArrayList<>();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
-            cursor.moveToNext();
+        if(cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                emails.add(cursor.getString(ProfileQuery.ADDRESS));
+                cursor.moveToNext();
+            }
         }
-
         addEmailsToAutoComplete(emails);
     }
 
@@ -314,63 +294,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView.setAdapter(adapter);
     }
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-//                Exemplo de troca de activity, será mudado posteriormente.
-                startActivity(new Intent(LoginActivity.this, MapaPrincipalActivity.class));
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
-    }
 }
 

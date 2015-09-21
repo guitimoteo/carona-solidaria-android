@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_invalido">E-mail ou senha inválidos</string>
+    <string name="erro_servidor">Não foi possível conectar-se ao servidor</string>
+</resources>

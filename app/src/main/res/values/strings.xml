@@ -192,4 +192,6 @@
     <string name="lblMarca">Marca</string>
     <string name="lblModelo">Modelo</string>
     <string name="lblCor">Cor</string>
+    <string name="login_invalido">E-mail ou senha inválidos</string>
+    <string name="erro_servidor">Não foi possível conectar-se ao servidor</string>
 </resources>

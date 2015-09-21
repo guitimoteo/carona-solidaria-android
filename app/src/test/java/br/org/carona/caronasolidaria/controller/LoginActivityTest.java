@@ -3,13 +3,14 @@ package br.org.carona.caronasolidaria.controller;
 import android.os.Build;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLog;
 
 import br.org.carona.caronasolidaria.BuildConfig;
 import br.org.carona.caronasolidaria.CustomRobolectricRunner;
@@ -34,6 +35,7 @@ public class LoginActivityTest {
         // Convenience method to run MainActivity through the Activity Lifecycle methods:
         // onCreate(...) => onStart() => onPostCreate(...) => onResume()
         activity = Robolectric.setupActivity(LoginActivity.class);
+        ShadowLog.stream = System.out;//Permite a chamada do Log.d dentro do console.
     }
 
     // @Test => JUnit 4 annotation specifying this is a test to be run
@@ -42,10 +44,11 @@ public class LoginActivityTest {
     public void shouldLoginOnServer() {
         AutoCompleteTextView email = (AutoCompleteTextView) activity.findViewById(R.id.email);
         EditText password = (EditText)activity.findViewById(R.id.password);
+        assertNotNull("TextView could not be found", email);
         email.setText("email@example.com");
         password.setText("password");
-        activity.attemptLogin();
-        assertNotNull("TextView could not be found", email);
+        activity.logar();
+        Robolectric.flushBackgroundThreadScheduler(); //Espera a thread ser completada
 
     }
 }
