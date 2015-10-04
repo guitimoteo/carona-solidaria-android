@@ -81,6 +81,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.org.carona.caronasolidaria.controller.MapaPrincipalActivity" />
         </activity>
+        <activity
+            android:name=".controller.CadastroUsuarioActivity"
+            android:label="@string/title_activity_cadastro_usuario"
+            android:parentActivityName=".controller.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.org.carona.caronasolidaria.controller.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>
