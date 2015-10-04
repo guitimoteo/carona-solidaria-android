@@ -16,7 +16,13 @@
         android:layout_marginBottom="8dip"
         android:visibility="gone"
         android:indeterminate="false" />
-
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/cadastro_usuario_nome_hint"
+        android:ems="10"
+        android:id="@+id/activity_cadastro_usuario_nome_et" />
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
