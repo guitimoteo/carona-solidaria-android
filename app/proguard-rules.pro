@@ -32,3 +32,8 @@
 -keep class com.google.gson.examples.android.model.** { *; }
 
 ##---------------End: proguard configuration for Gson  ----------
+##---------------Begin: proguard configuration for Saripaar  ----------
+
+-keep class com.mobsandgeeks.saripaar.** {*;}
+-keep @com.mobsandgeeks.saripaar.annotation.ValidateUsing class * {*;}
+##---------------End: proguard configuration for Gson  ----------
