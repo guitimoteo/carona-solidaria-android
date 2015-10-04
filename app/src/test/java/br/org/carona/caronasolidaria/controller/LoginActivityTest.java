@@ -1,5 +1,6 @@
 package br.org.carona.caronasolidaria.controller;
 
+import android.annotation.TargetApi;
 import android.os.Build;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -10,13 +11,16 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowHandler;
 import org.robolectric.shadows.ShadowLog;
+import org.robolectric.util.concurrent.RoboExecutorService;
 
 import br.org.carona.caronasolidaria.BuildConfig;
 import br.org.carona.caronasolidaria.CustomRobolectricRunner;
 import br.org.carona.caronasolidaria.R;
 
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 /**
@@ -40,6 +44,7 @@ public class LoginActivityTest {
 
     // @Test => JUnit 4 annotation specifying this is a test to be run
     // The test simply checks that our TextView exists and has the text "Hello world!"
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Test
     public void shouldLoginOnServer() {
         AutoCompleteTextView email = (AutoCompleteTextView) activity.findViewById(R.id.email);
