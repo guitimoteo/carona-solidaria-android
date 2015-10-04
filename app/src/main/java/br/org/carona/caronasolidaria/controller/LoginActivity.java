@@ -275,6 +275,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    /**
+     * Listener do botão de cadastro
+     * Deve levar o usuário ao formulário de cadastro.
+     * @param view
+     */
+    public void cadastrarOnClick(View view) {
+        startActivity(new Intent(this,CadastroUsuarioActivity.class));
+    }
+
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
