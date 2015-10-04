@@ -142,6 +142,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             loginModel.setSenha(senha);
 
             Ion.with(this).load("POST", BuildConfig.BASE_URL+"/users/login.json")
+                    .setLogging("HTTP", Log.DEBUG)
                     .setJsonPojoBody(loginModel, new TypeToken<LoginModel>() {
                     }).asJsonObject().withResponse().setCallback(new FutureCallback<Response<JsonObject>>() {
                 @Override
