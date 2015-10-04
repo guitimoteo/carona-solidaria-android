@@ -41,7 +41,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:7.5.0'
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'com.google.code.gson:gson:2.3.1'
-//    compile 'com.android.support:support-v4:22.2.1'
+    compile 'com.mobsandgeeks:android-saripaar:2.0.3'
     compile 'com.android.support:design:22.2.1'
 
     //Testes unitários com a jvm(Não a dalvik virtual machine)
