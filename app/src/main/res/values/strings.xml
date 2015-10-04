@@ -195,4 +195,9 @@
     <string name="login_invalido">E-mail ou senha inválidos</string>
     <string name="erro_servidor">Não foi possível conectar-se ao servidor</string>
     <string name="title_activity_cadastro_usuario">CadastroUsuarioActivity</string>
+    <string name="cadastro_usuario_email_hint">Email institucional do usuário</string>
+    <string name="password_confirm">Confirme a senha</string>
+    <string name="registrar">CADASTRAR</string>
+    <string name="cancelar">CANCELAR</string>
+    <string name="password">Senha</string>
 </resources>
