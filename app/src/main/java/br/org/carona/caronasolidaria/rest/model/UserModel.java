@@ -30,9 +30,11 @@ public class UserModel {
          * email : asdf@fatec.com.br
          * password : asdf@fatec.com.br
          */
-
+        @SerializedName("nome")
         private String nome;
+        @SerializedName("email")
         private String email;
+        @SerializedName("password")
         private String password;
 
         public void setNome(String nome) {

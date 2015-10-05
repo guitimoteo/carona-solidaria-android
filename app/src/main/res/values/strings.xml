@@ -200,4 +200,5 @@
     <string name="registrar">CADASTRAR</string>
     <string name="cancelar">CANCELAR</string>
     <string name="password">Senha</string>
+    <string name="cadastro_usuario_nome_hint">Insira o seu nome</string>
 </resources>
