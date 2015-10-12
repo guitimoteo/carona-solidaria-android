@@ -75,6 +75,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity implements Valida
         entity.setPassword(senhaET.getText().toString());
 
         userModel.setUser(entity);
+//       @see https://github.com/koush/ion
         Ion.with(this).load("POST", BuildConfig.BASE_URL+"/users/add.json")
                 .setLogging("HTTP", Log.DEBUG)
                 .setJsonPojoBody(userModel, new TypeToken<UserModel>() {})
@@ -92,7 +93,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity implements Valida
                             showMessage("Usuário cadastrado com sucesso");
                             finish();
                             break;
-                        case 400:
+                        case 400: //400 quando houver erro
                             Log.d(TAG, "erro ao logar");
                             showMessage("Problemas ao cadastrar o usuário");
                             break;
