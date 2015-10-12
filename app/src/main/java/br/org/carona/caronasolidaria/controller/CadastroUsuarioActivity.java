@@ -2,13 +2,10 @@ package br.org.carona.caronasolidaria.controller;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -29,7 +26,6 @@ import java.util.List;
 
 import br.org.carona.caronasolidaria.BuildConfig;
 import br.org.carona.caronasolidaria.R;
-import br.org.carona.caronasolidaria.rest.model.LoginModel;
 import br.org.carona.caronasolidaria.rest.model.UserModel;
 
 public class CadastroUsuarioActivity extends AppCompatActivity implements Validator.ValidationListener {
@@ -79,6 +75,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity implements Valida
         entity.setPassword(senhaET.getText().toString());
 
         userModel.setUser(entity);
+//       @see https://github.com/koush/ion
         Ion.with(this).load("POST", BuildConfig.BASE_URL+"/users/add.json")
                 .setLogging("HTTP", Log.DEBUG)
                 .setJsonPojoBody(userModel, new TypeToken<UserModel>() {})
@@ -96,7 +93,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity implements Valida
                             showMessage("Usuário cadastrado com sucesso");
                             finish();
                             break;
-                        case 400:
+                        case 400: //400 quando houver erro
                             Log.d(TAG, "erro ao logar");
                             showMessage("Problemas ao cadastrar o usuário");
                             break;
